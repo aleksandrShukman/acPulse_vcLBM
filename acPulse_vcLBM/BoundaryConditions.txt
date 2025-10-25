@@ -1,0 +1,107 @@
+#control parameters
+//Number of time steps
+Max-Time-Step 100
+
+//write-interval of results
+WriteInterval 10
+
+#write path
+Save-as /path-to-results-dir/results-filename
+
+//number of threads for parallel run (OpenMP only)
+Threads 16
+
+#physics
+//density
+Density 1.17621;
+
+//kinematic viscosity
+KinematicViscosity 1.49e-5 //!air
+
+//speed of sound
+SpeedOfSound 347.3; //!air
+
+//lattice Mach-Number
+MACH-Number 0.0;
+
+#order of equilibrium distribution (2, 3, 4)
+Order-Of-Equilibrium 3
+
+#collision model (comment/uncomment for use)
+//standard BGK model, cf. https://doi.org/10.1103/PhysRev.94.511
+//Collision-Model SRT
+
+//multiple relaxation time gram-schmidt basis, cf. https://doi.org/10.1103/PhysRevE.100.033305
+//Collision-Model MRT-GS
+
+//multiple relaxation time tensor-product raw moment basis, cf. https://doi.org/10.1103/PhysRevE.100.033305
+//Collision-Model MRT-RM
+
+//recursive-regularized collision model, cf. https://doi.org/10.48550/arXiv.1505.06900
+//Collision-Model RR
+
+//hybrid recursive-regularized collision model, cf. https://doi.org/10.1080/14685248.2018.1540879
+Collision-Model HRR
+
+#hybrid recursive-regularization hybridization parameter sigma
+Hybrid-Parameter 0.98
+
+#cubic MACH Correction for regularization models (RR and HRR), cf. https://doi.org/10.1016/j.jcp.2019.05.031
+Cubic-Mach-Correction no
+
+#type of coupling approach (STD = standard grid-refinement algo., cf. https://doi.org/10.1006/jcph.1998.6089 | DC1, DC2 = ASTOULS Direct Coupling methods, cf. https://doi.org/10.1016/j.jcp.2021.110667)
+Coupling-Approach STD
+
+#CBC-LODI
+//reflecting BC handling (yes | no) cf. https://doi.org/10.1103/PhysRevE.78.046707
+Non-Reflecting yes
+
+//include transverse LODI terms? (yes | no) cf. http://dx.doi.org/10.1016/j.jcp.2015.08.044
+Transverse no
+
+//K1 relaxation factor
+K1-Relaxation 1.0
+
+//K2 relaxation factor
+K2-Relaxation 1.0
+
+#fine-to-coarse filter (No Filter = NOFI | Lagrava = LAG, cf. https://doi.org/10.1016/j.jcp.2012.03.015 | Touil = TOU, cf. https://doi.org/10.1016/j.jcp.2013.07.037)
+F2C-Filter NOFI
+
+#populations to overwrite during multi-level coupling (for details, cf. https://doi.org/10.3390/fluids10020031, sec. 2.5)
+#fine grid, possible options for STD ALGORITHM: Mf = replace only missing fine links, MfP = replace missing and common fine links, fAll = replace all fine links
+							#for DC ALGORITHM:  Mf = replace only missing fine links, MfP = replace missing and common fine links
+
+//Coarse-to-Fine Mf
+//Coarse-to-Fine MfP
+Coarse-to-Fine fAll //<-- use only with standard grid-refinement algo.!
+
+#coarse grid, possible options for STD ALGORITHM: Mc = replace only missing coarse links, cAll = replace all coarse links
+							  #for DC ALGORITHM:  Mc = replace only missing coarse links, McP = replace missing and common coarse links (EITHER MfP-Mc OR Mf-McP)
+//Fine-to-Coarse Mc
+//Fine-to-Coarse McP //<-- use only with DC!
+Fine-to-Coarse cAll  //<-- use only with STD!
+
+#hanging node population reconstruction (hMf | hMfP | hAll)
+Hanging-Node-Reconstruction hAll
+
+#scaling style during c2f/f2c coupling (SRTSTYLE = population based | MRTSTYLE = moment based)
+Scaling-Style SRTSTYLE
+
+#domain size
+Domain-Size-X 3.
+Domain-Size-Y 3.
+Domain-Size-Z 0.4
+
+#grid parameters
+//grid spacing
+Spacing 2.0e-2
+//grid refinement level
+MaxLevel 1
+//Number of refined cells in y and z direction (on Level 0)
+RefinementLayerYZ 4
+//Number of refined cells in x direction (on Level 0)
+RefinementLayerX 75
+//Number of coarse overlap-cells (0 for ASTOULS Direct Coupling approach, 1 for Standard method)
+Overlap 1
+
